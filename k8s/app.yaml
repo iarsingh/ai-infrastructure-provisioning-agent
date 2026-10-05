@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-infrastructure-provisioning-agent
+  labels:
+    app: ai-infrastructure-provisioning-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-infrastructure-provisioning-agent
+  template:
+    metadata:
+      labels:
+        app: ai-infrastructure-provisioning-agent
+    spec:
+      containers:
+        - name: api
+          image: ai-infrastructure-provisioning-agent:local
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /v1/readyz
+              port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-infrastructure-provisioning-agent
+spec:
+  selector:
+    app: ai-infrastructure-provisioning-agent
+  ports:
+    - port: 80
+      targetPort: 8080
