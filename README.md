@@ -1,5 +1,12 @@
 # AI Infrastructure Provisioning Agent
 
+## Overview
+
+A provisioning agent that turns a request into a plan instead of changing infrastructure. Calling `POST /agent/run` returns the names of the infrastructure modules that would need to be rendered, and any attempt to run Terraform apply is refused. A versioned `/v1` ops API adds workspaces, tenant isolation, job approval and audit records around the agent.
+
+- **Built with:** Python, pytest, Docker, GitHub Actions
+- **Scope:** Local laptop lab with tests; it does not call a hosted model and never applies Terraform or production changes.
+
 <!-- project-guide:start -->
 ## Project guide
 
